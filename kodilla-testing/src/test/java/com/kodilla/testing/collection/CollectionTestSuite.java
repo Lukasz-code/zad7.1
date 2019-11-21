@@ -47,4 +47,3 @@ public class CollectionTestSuite {
         Assert.assertEquals(evenNumbers, oddNumbers);
         }
     }
-
