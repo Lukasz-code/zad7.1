@@ -1,25 +1,24 @@
 package com.kodilla.testing.shape;
 
-
+import com.codilla.testing.shape.Circle;
 import com.codilla.testing.shape.ShapeCollector;
-
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
-import java.util.ArrayList;
+import com.codilla.testing.shape.Square;
+import com.codilla.testing.shape.Triangle;
+import org.junit.*;
 
 public class ShapeCollectorTestSuite {
-private static int testCounter = 0;
+    private static int testCounter = 0;
+
     @BeforeClass
     public static void beforeAllTests() {
         System.out.println("All tests are started");
     }
+
     @AfterClass
     public static void afterAllTests() {
         System.out.println("All tests are finished.");
     }
+
     @Before
     public void beforeEveryTest() {
         testCounter++;
@@ -27,18 +26,80 @@ private static int testCounter = 0;
     }
 
     @Test
-    public void addFigureTest (){
+    public void addFigureTest() {
         //Given
-        ShapeCollector shapeCollector = new ShapeCollector();
-
+        ShapeCollector collection = new ShapeCollector();
         //When
-        shapeCollector.addFigure();
+        Circle circle = new Circle("circle", 21);
+        Square square = new Square("square", 34);
+        Triangle triangle = new Triangle("triangle", 314);
+        collection.addFigure(circle);
+        collection.addFigure(square);
+        collection.addFigure(triangle);
+        //Than
+        Assert.assertEquals(3, collection.collectedShapesQuantity());
+    }
 
+    @Test
+    public void removeFigureTest() {
+        //Given
+        ShapeCollector collection = new ShapeCollector();
+        //When
+        Circle circle = new Circle("circle", 21);
+        Square square = new Square("square", 34);
+        Triangle triangle = new Triangle("triangle", 314);
+        collection.addFigure(circle);
+        collection.addFigure(square);
+        collection.addFigure(triangle);
+
+        collection.removeFigure(circle);
+        //Than
+        Assert.assertEquals(2, collection.collectedShapesQuantity());
+    }
+
+    @Test
+    public void getFigureTest() {
+        //Given
+        ShapeCollector collection = new ShapeCollector();
+        //When
+        Circle circle = new Circle("circle", 21);
+        Square square = new Square("square", 34);
+        Triangle triangle = new Triangle("triangle", 314);
+        collection.addFigure(circle);
+        collection.addFigure(square);
+        collection.addFigure(triangle);
+
+        //Than
+        Assert.assertEquals(square, collection.getFigure(1));
     }
     @Test
-    public void removeFigureTest(){}
+    public void getFigureTest2() {
+        //Given
+        ShapeCollector collection = new ShapeCollector();
+        //When
+        Circle circle = new Circle("circle", 21);
+        Square square = new Square("square", 34);
+        Triangle triangle = new Triangle("triangle", 314);
+        collection.addFigure(circle);
+        collection.addFigure(square);
+        collection.addFigure(triangle);
+
+        //Than
+        Assert.assertNull("wartość poza zakresem", collection.getFigure(-2));
+    }
     @Test
-    public void  getFigureTest (){}
-    @Test
-    public void showFiguresTest(){}
+    public void getFigureTest3() {
+        //Given
+        ShapeCollector collection = new ShapeCollector();
+        //When
+        Circle circle = new Circle("circle", 21);
+        Square square = new Square("square", 34);
+        Triangle triangle = new Triangle("triangle", 314);
+        collection.addFigure(circle);
+        collection.addFigure(square);
+        collection.addFigure(triangle);
+
+        //Than
+        Assert.assertNull("wartość poza zakresem", collection.getFigure(10));
+    }
 }
